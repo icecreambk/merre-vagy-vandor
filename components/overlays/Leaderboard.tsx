@@ -27,7 +27,9 @@ const CONTINENT_FLAGS: Record<string, string> = {
 
 export default function Leaderboard({ pinsData }: LeaderboardProps) {
   const [tab, setTab] = useState<Tab>('cities')
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 640
+  )
 
   const stats = useMemo(() => {
     if (!pinsData || pinsData.features.length === 0) return null
