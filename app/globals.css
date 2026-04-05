@@ -95,7 +95,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Hint overlay ─── */
 .hint-overlay {
   position: absolute;
-  bottom: 32px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -782,6 +782,138 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
   font-size: 13px;
   color: rgba(255,255,255,0.55);
   line-height: 1.4;
+}
+
+/* ─── Stats Panel Button ─── */
+.stats-panel-btn {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(6, 6, 18, 0.85);
+  border: 1px solid rgba(232, 197, 71, 0.35);
+  border-radius: 24px;
+  color: #e8c547;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.stats-panel-btn:hover {
+  background: rgba(232, 197, 71, 0.12);
+  border-color: rgba(232, 197, 71, 0.6);
+}
+
+/* ─── Stats Panel ─── */
+.stats-panel {
+  position: relative;
+  background: #0e0e1f;
+  border: 1px solid rgba(232, 197, 71, 0.25);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  animation: slideUp 0.25s ease;
+  text-align: center;
+}
+.stats-panel-icon { font-size: 40px; margin-bottom: 10px; }
+.stats-panel-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  color: #e8c547;
+  margin-bottom: 4px;
+}
+.stats-panel-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.stats-panel-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.stats-panel-total-num {
+  font-size: 56px;
+  font-weight: 800;
+  color: #e8c547;
+  line-height: 1;
+}
+.stats-panel-total-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+}
+.stats-panel-types {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+.stats-panel-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.spt-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.spt-dot--red    { background: #ef4444; }
+.spt-dot--yellow { background: #e8c547; }
+.spt-dot--green  { background: #22c55e; }
+.spt-label {
+  flex: 1;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-align: left;
+}
+.spt-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+}
+.stats-panel-continents {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-align: left;
+}
+.spc-title {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.spc-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  padding: 3px 0;
+}
+.spc-count { color: #e8c547; font-weight: 600; }
+.stats-panel-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* ─── Mapbox popup overrides ─── */

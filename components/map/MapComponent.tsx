@@ -144,7 +144,7 @@ export default function MapComponent({ onMapClick, onPinClick, pinsData }: MapCo
 
     const m = new mapboxgl.Map({
       container: mapContainer.current,
-      style: process.env.NEXT_PUBLIC_MAPBOX_STYLE_URL || 'mapbox://styles/mapbox/dark-v11',
+      style: process.env.NEXT_PUBLIC_MAPBOX_STYLE_URL || 'mapbox://styles/mapbox/satellite-v9',
       center: MAP_INITIAL_VIEW.center,
       zoom: MAP_INITIAL_VIEW.zoom,
       projection: 'globe',
@@ -157,11 +157,11 @@ export default function MapComponent({ onMapClick, onPinClick, pinsData }: MapCo
       isStyleLoaded.current = true
 
       m.setFog({
-        color: 'rgb(10, 10, 20)',
-        'high-color': 'rgb(20, 20, 40)',
-        'horizon-blend': 0.02,
+        color: 'rgb(20, 40, 80)',
+        'high-color': 'rgb(40, 80, 160)',
+        'horizon-blend': 0.04,
         'space-color': 'rgb(5, 5, 15)',
-        'star-intensity': 0.6,
+        'star-intensity': 0.8,
       })
 
       // Csíksomlyó

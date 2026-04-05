@@ -8,6 +8,7 @@ import PinForm from '@/components/pin/PinForm'
 import PinSuccess from '@/components/pin/PinSuccess'
 import Leaderboard from '@/components/overlays/Leaderboard'
 import AboutOverlay from '@/components/overlays/AboutOverlay'
+import StatsPanel from '@/components/overlays/StatsPanel'
 import type { PinGeoJSON } from '@/types'
 
 // Mapbox must not run on server
@@ -109,6 +110,11 @@ export default function HomePage() {
 
       {/* About button + panel */}
       <AboutOverlay />
+
+      {/* Statisztika panel + FB megosztás */}
+      {uiState === 'idle' && (
+        <StatsPanel pinsData={pinsData} />
+      )}
 
       {/* Click hint */}
       {hint && uiState === 'idle' && (
