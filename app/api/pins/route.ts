@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { createServerClient } from '@/lib/supabase/client'
 import { generateRemovalToken, hashToken } from '@/lib/utils/token'
 import { PIN_EXPIRY_DAYS } from '@/lib/constants'
+import { sendWelcomeEmail } from '@/lib/email/sendWelcome'
 import type { PinGeoJSON } from '@/types'
 
 // GET /api/pins — return all active pins as GeoJSON
@@ -102,6 +103,18 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (error) throw error
+
+    // Üdvözlő email küldése ha van email cím
+    if (email) {
+      sendWelcomeEmail({
+        to: email,
+        name: name || 'Vándor',
+        city,
+        country,
+        pinType: pin_type,
+        removalToken,
+      }).catch(err => console.error('Email send error:', err))
+    }
 
     return NextResponse.json({
       success: true,
