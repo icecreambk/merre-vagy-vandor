@@ -34,6 +34,7 @@ export interface PinGeoJSON {
       name: string
       city: string
       country: string
+      pin_type: PinType
     }
   }>
 }
