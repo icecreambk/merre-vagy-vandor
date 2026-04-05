@@ -4,7 +4,7 @@ const CONTINENT_MAP: Record<string, string> = {
   'Magyarország': 'Európa', 'Románia': 'Európa', 'Ausztria': 'Európa',
   'Németország': 'Európa', 'Franciaország': 'Európa', 'Egyesült Királyság': 'Európa',
   'Olaszország': 'Európa', 'Spanyolország': 'Európa', 'Portugália': 'Európa',
-  'Hollandia': 'Európa', 'Belgium': 'Európa', 'Svájc': 'Európa',
+  'Hollandia': 'Európa', 'Svájc': 'Európa',
   'Svédország': 'Európa', 'Norvégia': 'Európa', 'Dánia': 'Európa',
   'Finnország': 'Európa', 'Lengyelország': 'Európa', 'Csehország': 'Európa',
   'Szlovákia': 'Európa', 'Szerbia': 'Európa', 'Horvátország': 'Európa',

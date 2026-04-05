@@ -99,7 +99,7 @@ export default function MapComponent({ onMapClick, onPinClick, pinsData }: MapCo
       // Events on layers — added once here
       m.on('click', 'unclustered-point', (e) => {
         if (!e.features?.[0]) return
-        const props = e.features[0].properties as { city: string; country: string; name: string }
+        const props = e.features[0].properties as { city: string; country: string; name: string; pin_type: string }
         const coords = (e.features[0].geometry as GeoJSON.Point).coordinates as [number, number]
         popup.current?.remove()
         const typeLabel = props.pin_type === 'commuter' ? '🟡 Kijár dolgozni'
