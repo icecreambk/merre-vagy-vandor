@@ -33,10 +33,28 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ─── Beta banner ─── */
+.beta-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: rgba(232, 197, 71, 0.12);
+  border-bottom: 1px solid rgba(232, 197, 71, 0.25);
+  color: rgba(232, 197, 71, 0.85);
+  font-size: 11px;
+  text-align: center;
+  padding: 6px 16px;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
 /* ─── Title overlay ─── */
 .title-overlay {
   position: absolute;
-  top: 24px;
+  top: 44px;
   left: 24px;
   z-index: 10;
   pointer-events: none;
@@ -95,7 +113,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Hint overlay ─── */
 .hint-overlay {
   position: absolute;
-  bottom: 220px;
+  bottom: 130px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -474,7 +492,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Leaderboard ─── */
 .leaderboard {
   position: absolute;
-  top: 20px;
+  top: 40px;
   right: 20px;
   z-index: 10;
   width: 260px;
@@ -655,7 +673,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Map legend ─── */
 .map-legend {
   position: absolute;
-  bottom: 130px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -688,7 +706,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Powered by ─── */
 .powered-by {
   position: absolute;
-  bottom: 100px;
+  bottom: 10px;
   right: 20px;
   z-index: 10;
   font-size: 11px;
@@ -701,7 +719,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── About button ─── */
 .about-btn {
   position: absolute;
-  bottom: 130px;
+  bottom: 32px;
   right: 20px;
   z-index: 10;
   width: 34px;
@@ -787,7 +805,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
 /* ─── Stats Panel Button ─── */
 .stats-panel-btn {
   position: absolute;
-  bottom: 170px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -955,21 +973,30 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
   }
   .lb-rows { max-height: 35vh; overflow-y: auto; }
 
-  /* Legend — kisebb, lentebb */
+  /* Legend — mobilon felülre kerül, cím alá */
   .map-legend {
-    bottom: 16px;
-    gap: 10px;
-    padding: 5px 12px;
+    top: 70px;
+    bottom: auto;
+    left: 12px;
+    transform: none;
+    gap: 8px;
+    padding: 5px 10px;
     font-size: 10px;
   }
   .map-legend-item { font-size: 10px; gap: 4px; }
   .map-legend-dot { width: 8px; height: 8px; }
 
-  /* Powered by — kisebb */
-  .powered-by { font-size: 9px; bottom: 4px; right: 10px; }
+  /* Powered by — rejtett mobilon */
+  .powered-by { display: none; }
 
-  /* About gomb */
-  .about-btn { bottom: 50px; right: 12px; }
+  /* About gomb — jobb oldalon középen */
+  .about-btn { bottom: auto; top: 60px; right: 12px; }
+
+  /* Stats gomb — középen, magasabban */
+  .stats-panel-btn { bottom: 100px; font-size: 12px; padding: 7px 14px; }
+
+  /* Hint — magasabban */
+  .hint-overlay { bottom: 155px; font-size: 11px; padding: 7px 14px; width: 85%; }
 
   /* Pin form — teljes képernyőn görgethető */
   .modal-backdrop { align-items: flex-end; padding: 0; }

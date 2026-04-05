@@ -76,6 +76,11 @@ export default function HomePage() {
         pinsData={pinsData || undefined}
       />
 
+      {/* Beta banner */}
+      <div className="beta-banner">
+        🧪 Teszt verzió · Az adatok 20 naponként törlődnek · Hamarosan végleges
+      </div>
+
       {/* Title top-left */}
       <TitleOverlay />
 
