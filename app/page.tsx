@@ -26,6 +26,7 @@ export default function HomePage() {
   const [successData, setSuccessData] = useState<{ token: string; city: string } | null>(null)
   const [stats, setStats] = useState({ total: 0, countries: 0 })
   const [hint, setHint] = useState(false)
+  const [visitorMode, setVisitorMode] = useState(false)
 
   const fetchPins = useCallback(async () => {
     try {
@@ -51,10 +52,11 @@ export default function HomePage() {
 
   const handleMapClick = useCallback((lat: number, lng: number) => {
     if (uiState !== 'idle') return
+    if (visitorMode) return // látogató módban nem nyílik meg a form
     setClickedCoords({ lat, lng })
     setUiState('placing')
     setHint(false)
-  }, [uiState])
+  }, [uiState, visitorMode])
 
   const handlePinSuccess = useCallback((removalToken: string, city: string) => {
     setSuccessData({ token: removalToken, city })
@@ -117,9 +119,28 @@ export default function HomePage() {
       )}
 
       {/* Click hint */}
-      {hint && uiState === 'idle' && (
+      {hint && uiState === 'idle' && !visitorMode && (
         <div className="hint-overlay">
-          👆 Kattints a térképre a jelölőd elhelyezéséhez
+          <span>👆 Kattints a térképre a jelölőd elhelyezéséhez</span>
+          <button
+            className="hint-visitor-btn"
+            onClick={() => { setVisitorMode(true); setHint(false) }}
+          >
+            Csak megnézem →
+          </button>
+        </div>
+      )}
+
+      {/* Látogató mód jelzés */}
+      {visitorMode && uiState === 'idle' && (
+        <div className="visitor-banner">
+          <span>👁 Nézelődő módban vagy</span>
+          <button
+            className="visitor-banner-btn"
+            onClick={() => setVisitorMode(false)}
+          >
+            Felrakom magam is
+          </button>
         </div>
       )}
 

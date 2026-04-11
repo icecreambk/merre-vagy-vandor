@@ -110,16 +110,70 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  background: rgba(6, 6, 18, 0.8);
+  background: rgba(6, 6, 18, 0.85);
   border: 1px solid rgba(255,255,255,0.1);
   color: rgba(255,255,255,0.7);
   padding: 10px 20px;
   border-radius: 24px;
   font-size: 14px;
   backdrop-filter: blur(8px);
-  pointer-events: none;
+  pointer-events: auto;
   animation: fadeInUp 0.4s ease;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hint-visitor-btn {
+  background: none;
+  border: 1px solid rgba(232,197,71,0.4);
+  color: rgba(232,197,71,0.85);
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.hint-visitor-btn:hover {
+  background: rgba(232,197,71,0.1);
+  border-color: rgba(232,197,71,0.7);
+  color: #e8c547;
+}
+
+/* ─── Látogató mód banner ─── */
+.visitor-banner {
+  position: absolute;
+  bottom: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(6, 6, 18, 0.85);
+  border: 1px solid rgba(232,197,71,0.25);
+  color: rgba(255,255,255,0.6);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  backdrop-filter: blur(8px);
+  animation: fadeInUp 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+.visitor-banner-btn {
+  background: rgba(232,197,71,0.15);
+  border: 1px solid rgba(232,197,71,0.5);
+  color: #e8c547;
+  font-size: 13px;
+  padding: 4px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.visitor-banner-btn:hover {
+  background: rgba(232,197,71,0.25);
+  border-color: #e8c547;
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateX(-50%) translateY(8px); }
@@ -948,7 +1002,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #060612; }
   .stat-value { font-size: 17px; }
 
   /* Hint */
-  .hint-overlay { font-size: 12px; padding: 8px 14px; white-space: normal; text-align: center; width: 88%; bottom: 20px; }
+  .hint-overlay { font-size: 12px; padding: 8px 14px; white-space: normal; text-align: center; width: 88%; bottom: 20px; flex-direction: column; gap: 8px; }
+  .visitor-banner { font-size: 12px; padding: 8px 14px; white-space: normal; text-align: center; width: 88%; bottom: 20px; flex-direction: column; gap: 8px; }
 
   /* Leaderboard — mobilon kisebb, jobb felső sarokban */
   .leaderboard {
