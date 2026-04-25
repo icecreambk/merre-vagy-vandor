@@ -215,8 +215,9 @@ export default function LandingPage() {
       <nav>
         <a href="/landing" className="nav-logo">Merre vagy, vándor?</a>
         <ul className="nav-links">
-          <li><a href="#about">Rólunk</a></li>
+          <li><a href="/rolunk">Rólunk</a></li>
           <li><a href="#contact">Kapcsolat</a></li>
+          <li><a href="/adatvedelem">Adatvédelem</a></li>
         </ul>
       </nav>
 
@@ -305,7 +306,8 @@ export default function LandingPage() {
       </section>
 
       <footer>
-        <p>© 2026 Merre vagy, vándor? · <a href="https://merre-vagy-vandor.vercel.app">Térkép app</a> · Powered by Kobori AI Systems · London</p>
+        <p>© 2026 Merre vagy, vándor? · <a href="https://merre-vagy-vandor.vercel.app">Térkép app</a> · <a href="/rolunk">Rólunk</a> · <a href="/adatvedelem">Adatvédelem</a></p>
+        <p style={{ marginTop: 6, fontSize: 11 }}>A projekt üzemeltetője az <strong style={{ color: 'var(--gold-dim)' }}>Erdélyi Vándor Baráti Társaság</strong> <span style={{ opacity: 0.6 }}>(alapítás alatt)</span></p>
       </footer>
 
       <script dangerouslySetInnerHTML={{__html: `

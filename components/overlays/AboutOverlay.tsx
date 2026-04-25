@@ -56,6 +56,7 @@ export default function AboutOverlay() {
               <div className="about-rule">🔒 Neved és email-ed soha nem jelenik meg a térképen</div>
               <div className="about-rule">💛 Nem adunk el adatot, nem küldünk reklámot — soha</div>
               <div className="about-rule">🤝 Az email címedet csak arra használjuk, hogy egyszer majd közösségként szólhassunk egymáshoz</div>
+              <div className="about-rule">📜 Részletek: <a href="/adatvedelem" target="_blank" rel="noopener noreferrer" style={{ color: '#e8c547', textDecoration: 'underline' }}>Adatvédelmi tájékoztató</a> (GDPR)</div>
             </div>
 
             <a
@@ -70,6 +71,18 @@ export default function AboutOverlay() {
             <button className="btn-primary" style={{ marginTop: '10px' }} onClick={() => setOpen(false)}>
               Értem — teszem a jelölőmet
             </button>
+
+            <p style={{ marginTop: '16px', fontSize: '11px', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
+              <a href="/rolunk" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(232,197,71,0.6)', textDecoration: 'underline' }}>
+                Rólunk
+              </a>
+              {' · '}
+              <a href="/adatvedelem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(232,197,71,0.6)', textDecoration: 'underline' }}>
+                Adatvédelmi tájékoztató
+              </a>
+              <br />
+              <span style={{ fontSize: '10px' }}>Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt)</span>
+            </p>
           </div>
         </div>
       )}

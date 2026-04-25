@@ -107,7 +107,17 @@ export default function HomePage() {
 
       {/* Powered by */}
       <div className="powered-by">
-        Powered by Kobori AI Systems · London 2026
+        <a href="/rolunk" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(232,197,71,0.7)', textDecoration: 'none', marginRight: 6 }}>
+          Rólunk
+        </a>
+        ·{' '}
+        <a href="/adatvedelem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(232,197,71,0.7)', textDecoration: 'none', marginLeft: 6, marginRight: 6 }}>
+          Adatvédelem
+        </a>
+        <br />
+        <span style={{ fontSize: 10, opacity: 0.7 }}>
+          Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt) · 2026
+        </span>
       </div>
 
       {/* About button + panel */}

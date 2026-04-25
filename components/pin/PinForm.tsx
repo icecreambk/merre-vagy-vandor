@@ -11,15 +11,45 @@ interface PinFormProps {
 }
 
 type Step = 'location' | 'details' | 'submitting'
+type PinType = 'living' | 'commuter' | 'planning'
+
+const CURRENT_YEAR = new Date().getFullYear()
+
+const DATE_LABEL: Record<PinType, { label: string; hint: string }> = {
+  living:   { label: 'Mikor mentél ki?',        hint: 'pl. 2018-05' },
+  commuter: { label: 'Mióta jársz ki?',         hint: 'pl. 2020-09' },
+  planning: { label: 'Mikor tervezel kimenni?', hint: 'pl. 2026-08' },
+}
 
 export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps) {
   const [step, setStep] = useState<Step>('location')
+
+  // Location
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
+
+  // Identity
   const [name, setName] = useState('')
+  const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
-  const [pinType, setPinType] = useState<'living' | 'commuter' | 'planning'>('living')
+
+  // Origin
+  const [originCity, setOriginCity] = useState('')
+  const [originCountry, setOriginCountry] = useState('Románia')
+
+  // When
+  const [relevantDate, setRelevantDate] = useState('')
+
+  // Profile
+  const [birthYear, setBirthYear] = useState('')
+  const [education, setEducation] = useState('')
+  const [occupation, setOccupation] = useState('')
+
+  // Pin type + consents
+  const [pinType, setPinType] = useState<PinType>('living')
   const [consent, setConsent] = useState(false)
+  const [consentMarketing, setConsentMarketing] = useState(false)
+
   const [error, setError] = useState('')
   const [loadingCity, setLoadingCity] = useState(false)
 
@@ -51,7 +81,7 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
 
   const handleSubmit = async () => {
     if (!city.trim()) {
-      setError('Kérjük add meg a várost.')
+      setError('Kérjük add meg a várost, ahol most vagy.')
       return
     }
     if (!email.trim()) {
@@ -61,6 +91,10 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
     if (!emailValid) {
       setError('Kérjük adj meg érvényes email címet.')
+      return
+    }
+    if (birthYear && (Number(birthYear) < 1900 || Number(birthYear) > CURRENT_YEAR)) {
+      setError('Érvénytelen születési év.')
       return
     }
     if (!consent) {
@@ -76,13 +110,21 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: name.trim() || 'Vándor',
+          name: name.trim() || undefined,
+          nickname: nickname.trim() || undefined,
           email: email.trim(),
           city: city.trim(),
           country: country.trim(),
           lat,
           lng,
           pin_type: pinType,
+          origin_city: originCity.trim() || undefined,
+          origin_country: originCountry.trim() || undefined,
+          relevant_date: relevantDate.trim() || undefined,
+          birth_year: birthYear ? Number(birthYear) : undefined,
+          education: education.trim() || undefined,
+          occupation: occupation.trim() || undefined,
+          consent_marketing: consentMarketing,
         }),
       })
 
@@ -112,7 +154,7 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
 
       <h2 className="pin-form-title">📍 Tedd fel a jelölődet</h2>
 
-      {/* Pin type selector */}
+      {/* Pin type selector (no descriptions — see Rólunk page) */}
       <div className="pin-type-selector">
         <button
           className={`pin-type-btn ${pinType === 'living' ? 'pin-type-btn--active-red' : ''}`}
@@ -120,7 +162,6 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
           type="button"
         >
           🚩 Kint élek
-          <span className="pin-type-desc">Jelenleg külföldön élek</span>
         </button>
         <button
           className={`pin-type-btn ${pinType === 'commuter' ? 'pin-type-btn--active-yellow' : ''}`}
@@ -128,7 +169,6 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
           type="button"
         >
           🟡 Kijárok
-          <span className="pin-type-desc">Dolgozni járok ki külföldre</span>
         </button>
         <button
           className={`pin-type-btn ${pinType === 'planning' ? 'pin-type-btn--active-green' : ''}`}
@@ -136,23 +176,22 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
           type="button"
         >
           🟢 Készülök
-          <span className="pin-type-desc">Tervezem hogy kimegyek</span>
         </button>
       </div>
 
       {/* Community message */}
       <div className="pin-form-mission">
         <p>
-          Ez egy <strong>ingyenes, nonprofit projekt.</strong> Senki nem keres rajta semmit,
-          nincs mögötte cég vagy szponzor. Csak erdélyiek, akik szeretnék tudni: hányan vagyunk, és hol.
-        </p>
-        <p>
-          Az email címedet <strong>soha nem adjuk el, és reklámot nem küldünk.</strong> Egyetlen
-          célra kérjük: hogy egyszer majd közösségként szólhassunk egymáshoz — amikor eljön az ideje.
+          <strong>Ingyenes, nonprofit projekt.</strong> Csak erdélyiek, akik szeretnék
+          tudni: hányan vagyunk, és hol. Az emailedet <strong>sosem adjuk el</strong>, és
+          csak akkor írunk, ha közösségként szólunk — vagy ha te magad kéred.
         </p>
       </div>
 
-      <div className="pin-form-fields">
+      {/* === SECTION: Most hol vagy === */}
+      <div className="pin-form-section">
+        <h3 className="pin-form-section-title">Hol vagy most?</h3>
+
         <div className="field-group">
           <label>Város * <span className="field-hint">(írj be legalább 3 betűt)</span></label>
           <CityAutocomplete
@@ -173,9 +212,71 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
             maxLength={100}
           />
         </div>
+      </div>
+
+      {/* === SECTION: Honnan === */}
+      <div className="pin-form-section">
+        <h3 className="pin-form-section-title">Honnan jössz?</h3>
 
         <div className="field-group">
-          <label htmlFor="name">Neved (nem kötelező)</label>
+          <label htmlFor="originCity">Város / település (nem kötelező)</label>
+          <input
+            id="originCity"
+            type="text"
+            value={originCity}
+            onChange={(e) => setOriginCity(e.target.value)}
+            placeholder="pl. Székelyudvarhely"
+            maxLength={100}
+          />
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="originCountry">Ország</label>
+          <input
+            id="originCountry"
+            type="text"
+            value={originCountry}
+            onChange={(e) => setOriginCountry(e.target.value)}
+            placeholder="pl. Románia"
+            maxLength={100}
+          />
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="relevantDate">
+            {DATE_LABEL[pinType].label} <span className="field-hint">(opcionális)</span>
+          </label>
+          <input
+            id="relevantDate"
+            type="month"
+            value={relevantDate}
+            onChange={(e) => setRelevantDate(e.target.value)}
+            placeholder={DATE_LABEL[pinType].hint}
+          />
+        </div>
+      </div>
+
+      {/* === SECTION: Rólad === */}
+      <div className="pin-form-section">
+        <h3 className="pin-form-section-title">Rólad</h3>
+
+        <div className="field-group">
+          <label htmlFor="nickname">
+            Nicknév <span className="field-hint">(ez jelenik meg a térképen)</span>
+          </label>
+          <input
+            id="nickname"
+            type="text"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="pl. Vándor_23"
+            maxLength={30}
+          />
+          <p className="field-warn">⚠ Ne írd be a teljes neved — nyilvánosan látszik a térképen</p>
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="name">Neved (nem kötelező, nem jelenik meg a térképen)</label>
           <input
             id="name"
             type="text"
@@ -196,9 +297,48 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
             placeholder="pl. janos@email.com"
           />
         </div>
+
+        <div className="field-row">
+          <div className="field-group">
+            <label htmlFor="birthYear">Születési év <span className="field-hint">(opcionális)</span></label>
+            <input
+              id="birthYear"
+              type="number"
+              min={1900}
+              max={CURRENT_YEAR}
+              value={birthYear}
+              onChange={(e) => setBirthYear(e.target.value)}
+              placeholder="pl. 1987"
+            />
+          </div>
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="education">Végzettség <span className="field-hint">(opcionális)</span></label>
+          <input
+            id="education"
+            type="text"
+            value={education}
+            onChange={(e) => setEducation(e.target.value)}
+            placeholder="pl. közgazdász, mérnök, szakmunkás"
+            maxLength={120}
+          />
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="occupation">Foglalkozás <span className="field-hint">(opcionális)</span></label>
+          <input
+            id="occupation"
+            type="text"
+            value={occupation}
+            onChange={(e) => setOccupation(e.target.value)}
+            placeholder="pl. szoftverfejlesztő, pincér, ápoló"
+            maxLength={120}
+          />
+        </div>
       </div>
 
-      {/* Consent checkbox */}
+      {/* Consent — data processing (REQUIRED) */}
       <label className="pin-form-consent">
         <input
           type="checkbox"
@@ -206,8 +346,27 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
           onChange={(e) => setConsent(e.target.checked)}
         />
         <span>
-          Megértettem, hogy ez egy nonprofit projekt. Az email címemet csak a jelölő
-          kezeléséhez és közösségi célokra használják, soha nem adják el harmadik félnek.
+          Elolvastam és elfogadom az{' '}
+          <a href="/adatvedelem" target="_blank" rel="noopener noreferrer" className="pin-form-consent-link">
+            Adatvédelmi tájékoztatót
+          </a>
+          . Hozzájárulok, hogy adataimat az <strong>Erdélyi Vándor Baráti Társaság</strong>{' '}
+          <span style={{ opacity: 0.7 }}>(alapítás alatt)</span> a jelölő kezelése és közösségi
+          célok érdekében feldolgozza. Hozzájárulásomat bármikor visszavonhatom.
+        </span>
+      </label>
+
+      {/* Consent — marketing (OPTIONAL, separate) */}
+      <label className="pin-form-consent pin-form-consent--optional">
+        <input
+          type="checkbox"
+          checked={consentMarketing}
+          onChange={(e) => setConsentMarketing(e.target.checked)}
+        />
+        <span>
+          <strong>(opcionális)</strong> Szeretnék ritkán hírlevelet / közösségi értesítést
+          kapni a projektről, eseményekről, esetleges partnerek ajánlatairól. Ezt külön,
+          bármikor visszavonhatom egyetlen kattintással.
         </span>
       </label>
 
@@ -227,7 +386,7 @@ export default function PinForm({ lat, lng, onSuccess, onCancel }: PinFormProps)
       </div>
 
       <p className="pin-form-privacy">
-        🔒 Jelölőd 30 nap után automatikusan törlődik · Neved sosem jelenik meg a térképen
+        🔒 Neved sosem jelenik meg a térképen · Csak a nicknév látható · Bármikor törölheted a jelölődet
       </p>
     </div>
   )

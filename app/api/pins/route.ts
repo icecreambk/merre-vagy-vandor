@@ -12,7 +12,7 @@ export async function GET() {
 
     const { data, error } = await supabase
       .from('pins')
-      .select('id, name, city, country, lat_rounded, lng_rounded, pin_type')
+      .select('id, name, nickname, city, country, lat_rounded, lng_rounded, pin_type, origin_city, origin_country')
       .eq('status', 'active')
       .gt('expires_at', new Date().toISOString())
       .order('created_at', { ascending: false })
@@ -29,10 +29,13 @@ export async function GET() {
         },
         properties: {
           id: pin.id,
-          name: pin.name,
+          // Map label: prefer nickname, fall back to 'Vándor' — never leak full name.
+          name: (pin.nickname && pin.nickname.trim()) || 'Vándor',
           city: pin.city,
           country: pin.country,
           pin_type: pin.pin_type || 'living',
+          origin_city: pin.origin_city,
+          origin_country: pin.origin_country,
         },
       })),
     }
@@ -47,14 +50,29 @@ export async function GET() {
 }
 
 // POST /api/pins — create a new pin
+const CURRENT_YEAR = new Date().getFullYear()
+
 const PinSchema = z.object({
-  name: z.string().min(1).max(60).default('Vándor'),
+  name: z.string().min(1).max(60).optional(),
+  nickname: z.string().min(1).max(30).optional(),
   email: z.string().email().optional().or(z.literal('')),
   city: z.string().min(1).max(100),
   country: z.string().min(1).max(100),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
   pin_type: z.enum(['living', 'commuter', 'planning']).default('living'),
+  origin_city: z.string().max(100).optional().or(z.literal('')),
+  origin_country: z.string().max(100).optional().or(z.literal('')),
+  relevant_date: z.string().optional().or(z.literal('')),
+  birth_year: z
+    .number()
+    .int()
+    .min(1900)
+    .max(CURRENT_YEAR)
+    .optional(),
+  education: z.string().max(120).optional().or(z.literal('')),
+  occupation: z.string().max(120).optional().or(z.literal('')),
+  consent_marketing: z.boolean().optional().default(false),
 })
 
 export async function POST(req: NextRequest) {
@@ -69,7 +87,23 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { name, email, city, country, lat, lng, pin_type } = parsed.data
+    const {
+      name,
+      nickname,
+      email,
+      city,
+      country,
+      lat,
+      lng,
+      pin_type,
+      origin_city,
+      origin_country,
+      relevant_date,
+      birth_year,
+      education,
+      occupation,
+      consent_marketing,
+    } = parsed.data
 
     // Round coordinates for privacy (0.1 degree ≈ 11km)
     const lat_rounded = Math.round(lat * 10) / 10
@@ -86,7 +120,8 @@ export async function POST(req: NextRequest) {
     const { data, error } = await supabase
       .from('pins')
       .insert({
-        name: name || 'Vándor',
+        name: (name && name.trim()) || 'Vándor',
+        nickname: (nickname && nickname.trim()) || null,
         email: email || null,
         city,
         country,
@@ -95,6 +130,13 @@ export async function POST(req: NextRequest) {
         lat_rounded,
         lng_rounded,
         pin_type,
+        origin_city: (origin_city && origin_city.trim()) || null,
+        origin_country: (origin_country && origin_country.trim()) || null,
+        relevant_date: (relevant_date && relevant_date.trim()) || null,
+        birth_year: birth_year ?? null,
+        education: (education && education.trim()) || null,
+        occupation: (occupation && occupation.trim()) || null,
+        consent_marketing: consent_marketing ?? false,
         expires_at: expiresAt.toISOString(),
         removal_token_hash: removalTokenHash,
       })
