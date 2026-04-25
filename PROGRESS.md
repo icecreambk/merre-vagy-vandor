@@ -1,7 +1,23 @@
 # Merre vagy, vándor? — Folyamat mentés
 
-**Utolsó frissítés:** 2026. április 24.
-**Státusz:** Aaron-féle változtatások beépítve, egyesület bejegyzésére vár → utána élesítés
+**Utolsó frissítés:** 2026. április 25.
+**Státusz:** Aaron-féle változtatások commit-olva + ma kijavított UX/backend bugok. Egyesület bejegyzésére vár → utána élesítés.
+
+---
+
+## 0. Április 25. — Mai munka (BEÉPÍTVE, MŰKÖDIK)
+
+| Mit csináltunk | Miért | Státusz |
+|---|---|---|
+| `npm run build` lokálisan zöld | Vercel deploy biztos lefut | ✅ |
+| Aaron-féle commit ellenőrzés (`3dff903`) | Tegnapi munka mentve gitbe | ✅ |
+| **Sticky submit + cancel gomb** a PinForm alján | Desktop-on a forma túl magas volt, nem lehetett submitolni | ✅ `app/globals.css` |
+| **Sticky close (×) gomb** scroll közben is látható | UX | ✅ `app/globals.css` |
+| `.pin-form` belső scroll + arany scrollbar | Forma magasság > viewport esetén is használható | ✅ `app/globals.css` |
+| **Dátum bug fix:** `<input type="month">` → Postgres DATE | `2020-01` formátumot Postgres elutasította (`code 22007`); mostantól backend `2020-01-01`-é alakítja | ✅ `app/api/pins/route.ts` |
+| Pin létrehozás teszt → 200 OK | Teljes flow lement (Budapest pin, „bela" nicknév) | ✅ |
+
+**Lokális commit státusz a mai munka után:** UNCOMMITTED — a `mentes2.bat` script ezt fogja commit-olni holnap.
 
 ---
 
@@ -72,20 +88,32 @@ Technikai:
 
 ## 3. Mi hiányzik még éles indulásig
 
-### 3.1 Rajtunk múlik
-- [ ] Lokális `npm run build` ellenőrzés (TypeScript + lint)
-- [ ] Mobil nézet végigtesztelése az új űrlappal
-- [ ] `valasz_aaronnak.md` → elküldeni Aronnak
-- [ ] Szabi végső GDPR ellenőrzés
+### 3.1 Rajtunk múlik (HOLNAPI MUNKA)
 
-### 3.2 Külső függés
+**Először: `mentes2.bat` futtatása** — a mai UX + dátum fix-et commit-olja gitbe.
+
+Aztán végigmegyünk:
+- [ ] **Mobil nézet végigtesztelés** (F12 → Ctrl+Shift+M → iPhone 14 Pro)
+  - Új 3-szekciós űrlap olvasható-e
+  - Sticky submit gomb mobilon is működik-e
+  - Térkép popup nicknév + honnan sor
+- [ ] **Másik 2 pin típus tesztelése** (Kijár, Készül) → datum mező címke változik-e
+- [ ] **Több teszt-pin** ugyanabban a városban → cluster (sárga/narancs/piros) megjelenése
+- [ ] **`/rolunk` átolvasás** — szövegezés rendben?
+- [ ] **`/adatvedelem` átolvasás** — szövegezés rendben? (utána Szabi végső átnézésre megy)
+- [ ] **Email confirmation / removal token email** működik-e (lib/email/) — vagy egyelőre csak a tokenes URL látszik a sikeres modálon?
+- [ ] **Aaron email piszkozat** átnézés (Gmail Drafts) → ha jó, küldés
+- [ ] **`mentes2.bat` újra** — végső commit ellenőrzések után
+
+### 3.2 Külső függés (NEM RAJTUNK MÚLIK)
 - [ ] **Egyesület bejegyzés** (Erdélyi Vándor Baráti Társaság) — bírósági bejegyzés folyamatban
 - [ ] Bejegyzés után: adatkezelő személyének hivatalos váltása a GDPR oldalon (szöveg már erre van felkészítve)
 - [ ] Szabi jogi véleménye és átírása ha szükséges
+- [ ] **Csak ezután:** `git push` → Vercel automatikus deploy → vandor.hu élesítés
 
 ### 3.3 Későbbi fázisokra
-- [ ] Donably integráció (donations)
-- [ ] Szponzor email capability (külön opt-in alapon)
+- [ ] Donably integráció (donations) — egyesület bejegyzés után
+- [ ] Szponzor email capability (külön opt-in alapon — már elő van készítve a `consent_marketing` flag)
 - [ ] Email értesítő bejegyzés után a felhasználóknak (ha lesz már valaki)
 
 ---

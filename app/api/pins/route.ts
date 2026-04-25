@@ -132,7 +132,15 @@ export async function POST(req: NextRequest) {
         pin_type,
         origin_city: (origin_city && origin_city.trim()) || null,
         origin_country: (origin_country && origin_country.trim()) || null,
-        relevant_date: (relevant_date && relevant_date.trim()) || null,
+        // <input type="month"> sends YYYY-MM, but Postgres DATE needs YYYY-MM-DD.
+        // Store as the first day of that month. Also accept full YYYY-MM-DD if ever sent.
+        relevant_date: (() => {
+          const v = (relevant_date || '').trim()
+          if (!v) return null
+          if (/^\d{4}-\d{2}$/.test(v)) return `${v}-01`
+          if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v
+          return null
+        })(),
         birth_year: birth_year ?? null,
         education: (education && education.trim()) || null,
         occupation: (occupation && occupation.trim()) || null,
