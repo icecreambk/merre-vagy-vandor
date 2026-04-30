@@ -6,6 +6,8 @@ import TitleOverlay from '@/components/overlays/TitleOverlay'
 import StatsOverlay from '@/components/overlays/StatsOverlay'
 import PinForm from '@/components/pin/PinForm'
 import PinSuccess from '@/components/pin/PinSuccess'
+import PinProfileForm from '@/components/pin/PinProfileForm'
+import PinProfileDone from '@/components/pin/PinProfileDone'
 import Leaderboard from '@/components/overlays/Leaderboard'
 import AboutOverlay from '@/components/overlays/AboutOverlay'
 import StatsPanel from '@/components/overlays/StatsPanel'
@@ -17,13 +19,13 @@ const MapComponent = dynamic(() => import('@/components/map/MapComponent'), {
   loading: () => <div className="map-loading"><div className="spinner" /></div>,
 })
 
-type UIState = 'idle' | 'placing' | 'success'
+type UIState = 'idle' | 'placing' | 'success' | 'profile' | 'profile_done'
 
 export default function HomePage() {
   const [pinsData, setPinsData] = useState<PinGeoJSON | null>(null)
   const [uiState, setUiState] = useState<UIState>('idle')
   const [clickedCoords, setClickedCoords] = useState<{ lat: number; lng: number } | null>(null)
-  const [successData, setSuccessData] = useState<{ token: string; city: string } | null>(null)
+  const [successData, setSuccessData] = useState<{ token: string; city: string; pinId: string } | null>(null)
   const [stats, setStats] = useState({ total: 0, countries: 0 })
   const [hint, setHint] = useState(false)
   const [visitorMode, setVisitorMode] = useState(false)
@@ -58,11 +60,25 @@ export default function HomePage() {
     setHint(false)
   }, [uiState, visitorMode])
 
-  const handlePinSuccess = useCallback((removalToken: string, city: string) => {
-    setSuccessData({ token: removalToken, city })
+  const handlePinSuccess = useCallback((removalToken: string, city: string, pinId: string) => {
+    setSuccessData({ token: removalToken, city, pinId })
     setUiState('success')
     fetchPins() // Refresh pins
   }, [fetchPins])
+
+  const handleStartProfile = useCallback(() => {
+    setUiState('profile')
+  }, [])
+
+  const handleProfileComplete = useCallback(() => {
+    setUiState('profile_done')
+  }, [])
+
+  const handleProfileSkip = useCallback(() => {
+    setUiState('idle')
+    setClickedCoords(null)
+    setSuccessData(null)
+  }, [])
 
   const handleClose = useCallback(() => {
     setUiState('idle')
@@ -166,14 +182,35 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Success modal */}
+      {/* Success modal — pin felkerült + sweepstakes inducement */}
       {uiState === 'success' && successData && (
         <div className="modal-backdrop">
           <PinSuccess
             city={successData.city}
             removalToken={successData.token}
+            pinId={successData.pinId}
+            onStartProfile={handleStartProfile}
             onClose={handleClose}
           />
+        </div>
+      )}
+
+      {/* Profile (Form 2) — sponsor-relevant survey */}
+      {uiState === 'profile' && successData && (
+        <div className="modal-backdrop">
+          <PinProfileForm
+            pinId={successData.pinId}
+            removalToken={successData.token}
+            onComplete={handleProfileComplete}
+            onSkip={handleProfileSkip}
+          />
+        </div>
+      )}
+
+      {/* Profile complete — thank-you screen */}
+      {uiState === 'profile_done' && (
+        <div className="modal-backdrop">
+          <PinProfileDone onClose={handleClose} />
         </div>
       )}
     </main>

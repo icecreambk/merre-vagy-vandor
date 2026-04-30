@@ -241,41 +241,68 @@ export default function AdatvedelemPage() {
 
         <h2>2. Milyen személyes adatokat kezelünk</h2>
         <p>
-          Amikor jelölőt (pin-t) helyezel a térképen, az alábbi adatokat gyűjtjük és tároljuk.
-          Az adatok körét a közösség kérésére bővítettük, hogy a diaszpóra-statisztika
-          pontosabb képet tudjon adni (pl. honnan jönnek, mikor mentek, milyen végzettséggel) —
-          <strong> minden bővített mező opcionális</strong>, üresen is hagyhatók.
+          Az adatkezelés <strong>két, jól elkülönített rétegben</strong> történik:
+          (A) a publikus térképhez szükséges minimális adatok, és (B) opcionális,
+          <strong> külön adatbázisban tárolt</strong> sponzori-statisztikai válaszok,
+          amelyeket csak akkor kezelünk, ha külön hozzájárulsz a kitöltéshez.
         </p>
+
         <div className="data-card">
-          <p><strong>Kötelező adatok (a jelölő létrehozásához):</strong></p>
+          <p><strong>A) Pin-felhelyezéshez kezelt adatok (a publikus „pins" adatbázis):</strong></p>
+          <p style={{marginTop: '8px'}}><em>Kötelező:</em></p>
           <ul>
             <li><strong>Email cím</strong> – a jelölő kezeléséhez, törlési lehetőség biztosításához, és (ha külön hozzájárulsz) ritka közösségi értesítésekhez</li>
             <li><strong>Mostani város és ország</strong> – a jelölő térképen való megjelenítéséhez</li>
             <li><strong>Földrajzi koordináták</strong> – pontos és kerekített formában egyaránt (részleteket lásd lent)</li>
             <li><strong>Jelölő típusa</strong> – „Kint élek", „Kijárok dolgozni", vagy „Készülök kimenni"</li>
           </ul>
-          <p style={{marginTop: '12px'}}><strong>Opcionális, nyilvános adatok (a térképen megjelennek):</strong></p>
+          <p style={{marginTop: '12px'}}><em>Opcionális, nyilvános:</em></p>
           <ul>
-            <li><strong>Nicknév</strong> – ez jelenik meg a térképen a jelölőd mellett. Ha nem adsz meg nicknevet, a rendszer „Vándor" néven jeleníti meg. <strong>Javasoljuk, hogy ne a teljes valódi nevedet írd ide</strong>, mert ez mindenki számára látható.</li>
-            <li><strong>Származási város és ország</strong> – pl. „Székelyudvarhely, Románia". A jelölő popup-ban jelenik meg, hogy az olvasó lássa, honnan származol.</li>
+            <li><strong>Nicknév</strong> – ez jelenik meg a térképen. Ha nem adsz meg, „Vándor" néven jelenik meg. <strong>Ne írd be a teljes valódi nevedet</strong>, mert nyilvános.</li>
           </ul>
-          <p style={{marginTop: '12px'}}><strong>Opcionális, nem nyilvános adatok (csak statisztikához, publikus térképen sosem jelennek meg):</strong></p>
+          <p style={{marginTop: '12px'}}><em>Külön, opcionális hozzájárulás – közösségi értesítés:</em></p>
           <ul>
-            <li><strong>Teljes név</strong> – csak belső nyilvántartás, a térképen <strong>sosem</strong> látszik</li>
-            <li><strong>Vonatkozó dátum</strong> – mikor mentél ki / mióta jársz ki / mikor tervezel kimenni</li>
-            <li><strong>Születési év</strong> – korösszetételi statisztikához (nem teljes születési dátum, csak év)</li>
-            <li><strong>Végzettség</strong> – szabadszöveges (pl. „közgazdász", „szakmunkás")</li>
-            <li><strong>Foglalkozás</strong> – szabadszöveges (pl. „szoftverfejlesztő", „pincér")</li>
+            <li><strong>Marketing-hozzájárulás flag</strong> – csak akkor igaz, ha külön kipipálod. Bármikor visszavonható.</li>
           </ul>
-          <p style={{marginTop: '12px'}}><strong>Külön, opcionális hozzájárulás – marketing / hírlevél:</strong></p>
+
+          <p style={{marginTop: '20px'}}><strong>B) Opcionális közösségi-sponzori adatlap (külön „pin_profiles" adatbázis, csak hozzájárulás esetén):</strong></p>
+          <p style={{marginTop: '8px'}}>
+            A pin sikeres felhelyezése után — <strong>opcionálisan</strong> — kitölthetsz egy
+            ~1 perces, 4 szekciós kérdéssort. Ez kizárólag akkor kerül adatbázisba, ha
+            önként kitöltöd. <strong>Minden kérdés átugorható</strong> („inkább nem mondom"
+            opció mindenhol), és bármikor megszakítható.
+          </p>
+          <p style={{marginTop: '8px'}}><em>Kérdezett mezők (kategorikus, dropdown / radio formában):</em></p>
           <ul>
-            <li><strong>Marketing-hozzájárulás flag</strong> – csak akkor jelöljük ezt meg, ha Te a formban külön kipipálod. Ezt bármikor, egyetlen kattintással visszavonhatod.</li>
+            <li><strong>Erdélyi szülőhely</strong> (szabad szöveg, opcionális)</li>
+            <li><strong>Megye</strong> (Erdély 13 történelmi megyéje + „Nem Erdélyből származom" + „Inkább nem mondom")</li>
+            <li><strong>Kint maradt-e családod?</strong> (közeli / távolabbi / nem / inkább nem mondom)</li>
+            <li><strong>Hazautazási gyakoriság</strong> (4 kategória)</li>
+            <li><strong>Utazási mód</strong> (5 kategória: repülő / autó / busz / vonat / vegyes)</li>
+            <li><strong>Pénzküldési gyakoriság</strong> (4 kategória)</li>
+            <li><strong>Hazaköltözési terv</strong> (4 kategória)</li>
+            <li><strong>Életkor-tartomány</strong> (5 sáv: 18-25, 26-35, 36-45, 46-55, 56+; nem teljes születési dátum, nem konkrét év)</li>
+            <li><strong>Foglalkozási kategória</strong> (8 előre meghatározott kategória, nem szabad szöveg)</li>
+            <li><strong>Megismerési forrás</strong> (FB / közösségi média / barát / sajtó / Áron / egyéb) — marketing-attribúcióra</li>
           </ul>
-          <p style={{marginTop: '12px'}}><strong>Automatikusan gyűjtött technikai adatok:</strong></p>
+          <p style={{marginTop: '12px'}}><em>Külön, kifejezett hozzájárulások a B) adatlap végén:</em></p>
+          <ul>
+            <li><strong>Sorsolási hozzájárulás</strong> – ha bepipálod, részt veszel a havi partnerajánlat-kupon sorsolásban (pl. WizzAir kedvezmény, Volánbusz utalvány). A sorsolási szabályzat részleteit a 11. pont tartalmazza.</li>
+            <li><strong>Sponzori ajánlat hozzájárulás</strong> – ha bepipálod, évente max 4-5 alkalommal küldhetünk neked az erdélyi közösségnek szóló partnerajánlatokat (utazás, pénzküldés, biztosítás). <strong>Az email címedet sosem adjuk át a partnernek</strong> — a megkereséseket mi magunk küldjük ki.</li>
+          </ul>
+          <p style={{marginTop: '12px'}}>
+            <strong>A B) tábla biztonsága:</strong> a pin_profiles adatbázis-tábla
+            Postgres Row Level Security (RLS) szabályokkal teljes mértékben elzárt a
+            publikus API elől — kizárólag szerveroldalon, a service_role kulccsal érhető el.
+            <strong>A nyilvános térképen ezekből az adatokból semmi nem jelenik meg</strong>
+            (sem közvetlenül, sem közvetve egyéni szinten).
+          </p>
+
+          <p style={{marginTop: '20px'}}><strong>C) Automatikusan gyűjtött technikai adatok:</strong></p>
           <ul>
             <li><strong>Létrehozás dátuma</strong> és technikai lejárati dátum (jelenleg hosszú távú: kb. 10 év, csak biztonsági háló — lásd 5. pont)</li>
             <li><strong>Jelölő státusz</strong> (aktív / elrejtett / törölt)</li>
-            <li><strong>Törlési token hash-je</strong> – ami lehetővé teszi, hogy saját magad is törölhesd a jelölőd</li>
+            <li><strong>Törlési token hash-je</strong> – ami lehetővé teszi, hogy saját magad is törölhesd a jelölőd, és hogy az opcionális adatlapot biztonságosan kitöltsd</li>
             <li><strong>Szerveroldali log-ok</strong> – IP cím, böngésző azonosító, kérés időpontja (csak rövid ideig, biztonsági és hibakeresési célból)</li>
           </ul>
         </div>
@@ -446,26 +473,51 @@ export default function AdatvedelemPage() {
           <li>A törlési token <strong>hash-elve</strong> van tárolva — a nyers token csak a user böngészőjében létezik</li>
           <li>Rendszeres biztonsági frissítések (függőségi frissítések, Supabase és Vercel platform)</li>
           <li>A szerveroldali titkos kulcsok (API keys) környezeti változókban tárolva, nyilvános repóban nem</li>
+          <li>Az opcionális adatlap (pin_profiles tábla) Postgres Row Level Security-vel teljes mértékben elzárva — kizárólag szerveroldalon, a service_role kulccsal érhető el</li>
         </ul>
 
-        <h2>11. Automatizált döntéshozatal</h2>
+        <h2>11. Sorsolás (sweepstakes)</h2>
         <p>
-          A rendszer <strong>nem végez</strong> automatizált döntéshozatalt vagy profilalkotást az érintettekkel kapcsolatban
-          (GDPR 22. cikk). A jelölők nem kerülnek rangsorolásra, nem kapnak pontszámot,
-          nem kerülnek célzott reklámozási csoportokba. Az egyetlen automatikus művelet az
-          aggregált statisztikák generálása (pl. „hány erdélyi van az adott országban"), ami
-          egyéni azonosítást nem tartalmaz.
+          A pin sikeres felhelyezése után megjelenik egy opcionális, ~1 perces adatlap (a 2/B
+          pontban részletezett kérdésekkel). Ha kitöltöd <strong>és külön bepipálod</strong> a
+          „Részt szeretnék venni a sorsolásban" jelölőnégyzetet, automatikusan bekerülsz a
+          havonta megrendezett partnerajánlat-kupon sorsolásba (pl. WizzAir kedvezmény-kupon,
+          Volánbusz utalvány vagy hasonló).
+        </p>
+        <ul>
+          <li><strong>Részvétel feltétele:</strong> érvényes email cím + a sorsolási checkbox kifejezett bepipálása.</li>
+          <li><strong>Sorsolás módja:</strong> minden hónapban egy alkalommal véletlenszerű sorsolással választunk ki egy nyertest a sorsolási hozzájárulást adott kitöltők közül.</li>
+          <li><strong>Eredmény közlése:</strong> a nyertest emailben értesítjük, a kupont 30 napon belül kézbesítjük (digitális kupon esetén emailben).</li>
+          <li><strong>A kupon értéke és típusa:</strong> az adott hónapban rendelkezésre álló partner-felajánlástól függ. Sponzori partnerség hiányában a kupont az üzemeltető saját finanszírozásában biztosítja (pl. WizzAir voucher vásárlással).</li>
+          <li><strong>A részvétel önkéntes és ingyenes</strong> — a sorsolásban való részvétel nincs vásárláshoz kötve, és a hozzájárulás bármikor visszavonható (a már megnyert kupon érvényessége nem szűnik meg).</li>
+          <li><strong>Kizárás:</strong> az üzemeltető és közvetlen családtagjai a sorsolásban nem vehetnek részt.</li>
+          <li><strong>Jogi besorolás:</strong> a sorsolás <strong>nem szerencsejáték</strong> a hatályos magyar és román jogszabályok értelmében (nyereményjáték / promóciós sorsolás kategória, részvételi díj nélküli, marketing célú).</li>
+        </ul>
+        <p className="dim">
+          A részletes sorsolási szabályzat folyamatban van, és <strong>az egyesület hivatalos
+          bejegyzése után</strong> kerül publikálásra ezen az oldalon. Az első sorsolás csak az
+          egyesület bejegyzését követően lesz megrendezve.
         </p>
 
-        <h2>12. A tájékoztató módosítása</h2>
+        <h2>12. Automatizált döntéshozatal</h2>
         <p>
-          Fenntartjuk a jogot, hogy ezt a tájékoztatót időről időre frissítsük
-          (pl. jogszabályi változás, új adatfeldolgozó bevonása esetén). A jelentős változásokat
-          az oldal tetején jelezzük, és ha az érintetted valamely korábbi hozzájárulási nyilatkozatát
-          érinti, emailben is értesítünk. A mindenkor hatályos verzió ezen az oldalon mindig elérhető.
+          A rendszer <strong>nem végez</strong> automatizált döntéshozatalt vagy profilalkotást
+          az érintettekkel kapcsolatban (GDPR 22. cikk). A jelölők nem kerülnek rangsorolásra,
+          nem kapnak pontszámot, nem kerülnek célzott reklámozási csoportokba. Az egyetlen
+          automatikus művelet az aggregált statisztikák generálása (pl. „hány erdélyi van az
+          adott országban", „milyen a korösszetétel"), ami <strong>egyéni azonosítást nem
+          tartalmaz</strong>.
         </p>
 
-        <h2>13. Kapcsolat</h2>
+        <h2>13. A tájékoztató módosítása</h2>
+        <p>
+          Fenntartjuk a jogot, hogy ezt a tájékoztatót időről időre frissítsük (pl. jogszabályi
+          változás, új adatfeldolgozó bevonása esetén). A jelentős változásokat az oldal tetején
+          jelezzük, és ha az érintettedet valamely korábbi hozzájárulási nyilatkozatát érinti,
+          emailben is értesítünk. A mindenkor hatályos verzió ezen az oldalon mindig elérhető.
+        </p>
+
+        <h2>14. Kapcsolat</h2>
         <div className="contact-block">
           <p>Adatvédelmi kérdéseiddel, kéréseiddel bátran fordulj hozzánk:</p>
           <p style={{marginTop: '10px'}}>
@@ -481,8 +533,8 @@ export default function AdatvedelemPage() {
         <p>
           © 2026 Merre vagy, vándor? · <a href="/landing">Főoldal</a> · <a href="/rolunk">Rólunk</a> · <a href="/">Térkép</a>
         </p>
-        <p style={{marginTop: '8px', opacity: 0.65}}>
-          Üzemeltető: Erdélyi Vándor Baráti Társaság <em>(alapítás alatt)</em>
+        <p className="dim" style={{marginTop: 6, fontSize: 11}}>
+          Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt) · 2026
         </p>
       </footer>
     </>

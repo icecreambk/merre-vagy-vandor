@@ -5,14 +5,14 @@ import { generateRemovalToken, hashToken } from '@/lib/utils/token'
 import { PIN_EXPIRY_DAYS } from '@/lib/constants'
 import type { PinGeoJSON } from '@/types'
 
-// GET /api/pins — return all active pins as GeoJSON
+// GET /api/pins — return all active pins as GeoJSON (only public-safe fields)
 export async function GET() {
   try {
     const supabase = createServerClient()
 
     const { data, error } = await supabase
       .from('pins')
-      .select('id, name, nickname, city, country, lat_rounded, lng_rounded, pin_type, origin_city, origin_country')
+      .select('id, nickname, city, country, lat_rounded, lng_rounded, pin_type')
       .eq('status', 'active')
       .gt('expires_at', new Date().toISOString())
       .order('created_at', { ascending: false })
@@ -34,8 +34,6 @@ export async function GET() {
           city: pin.city,
           country: pin.country,
           pin_type: pin.pin_type || 'living',
-          origin_city: pin.origin_city,
-          origin_country: pin.origin_country,
         },
       })),
     }
@@ -49,29 +47,15 @@ export async function GET() {
   }
 }
 
-// POST /api/pins — create a new pin
-const CURRENT_YEAR = new Date().getFullYear()
-
+// POST /api/pins — create a new pin (Form 1 — slim)
 const PinSchema = z.object({
-  name: z.string().min(1).max(60).optional(),
   nickname: z.string().min(1).max(30).optional(),
-  email: z.string().email().optional().or(z.literal('')),
+  email: z.string().email(),
   city: z.string().min(1).max(100),
   country: z.string().min(1).max(100),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
   pin_type: z.enum(['living', 'commuter', 'planning']).default('living'),
-  origin_city: z.string().max(100).optional().or(z.literal('')),
-  origin_country: z.string().max(100).optional().or(z.literal('')),
-  relevant_date: z.string().optional().or(z.literal('')),
-  birth_year: z
-    .number()
-    .int()
-    .min(1900)
-    .max(CURRENT_YEAR)
-    .optional(),
-  education: z.string().max(120).optional().or(z.literal('')),
-  occupation: z.string().max(120).optional().or(z.literal('')),
   consent_marketing: z.boolean().optional().default(false),
 })
 
@@ -88,7 +72,6 @@ export async function POST(req: NextRequest) {
     }
 
     const {
-      name,
       nickname,
       email,
       city,
@@ -96,12 +79,6 @@ export async function POST(req: NextRequest) {
       lat,
       lng,
       pin_type,
-      origin_city,
-      origin_country,
-      relevant_date,
-      birth_year,
-      education,
-      occupation,
       consent_marketing,
     } = parsed.data
 
@@ -120,9 +97,9 @@ export async function POST(req: NextRequest) {
     const { data, error } = await supabase
       .from('pins')
       .insert({
-        name: (name && name.trim()) || 'Vándor',
+        name: 'Vándor', // legacy column, no longer collected from users
         nickname: (nickname && nickname.trim()) || null,
-        email: email || null,
+        email,
         city,
         country,
         lat,
@@ -130,20 +107,6 @@ export async function POST(req: NextRequest) {
         lat_rounded,
         lng_rounded,
         pin_type,
-        origin_city: (origin_city && origin_city.trim()) || null,
-        origin_country: (origin_country && origin_country.trim()) || null,
-        // <input type="month"> sends YYYY-MM, but Postgres DATE needs YYYY-MM-DD.
-        // Store as the first day of that month. Also accept full YYYY-MM-DD if ever sent.
-        relevant_date: (() => {
-          const v = (relevant_date || '').trim()
-          if (!v) return null
-          if (/^\d{4}-\d{2}$/.test(v)) return `${v}-01`
-          if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v
-          return null
-        })(),
-        birth_year: birth_year ?? null,
-        education: (education && education.trim()) || null,
-        occupation: (occupation && occupation.trim()) || null,
         consent_marketing: consent_marketing ?? false,
         expires_at: expiresAt.toISOString(),
         removal_token_hash: removalTokenHash,

@@ -104,20 +104,12 @@ export default function MapComponent({ onMapClick, onPinClick, pinsData }: MapCo
           country: string
           name: string
           pin_type: string
-          origin_city?: string | null
-          origin_country?: string | null
         }
         const coords = (e.features[0].geometry as GeoJSON.Point).coordinates as [number, number]
         popup.current?.remove()
         const typeLabel = props.pin_type === 'commuter' ? '🟡 Kijár dolgozni'
           : props.pin_type === 'planning' ? '🟢 Készül kimenni'
           : '🚩 Kint él'
-
-        // Build "honnan" line only if origin info was provided.
-        const originParts = [props.origin_city, props.origin_country].filter(Boolean)
-        const originLine = originParts.length > 0
-          ? `<span style="font-size:11px;color:#666">honnan: ${originParts.join(', ')}</span><br/>`
-          : ''
 
         // Escape minimal HTML — name is user-supplied (nickname)
         const esc = (s: string) => String(s).replace(/[&<>"']/g, (c) => (
@@ -130,7 +122,6 @@ export default function MapComponent({ onMapClick, onPinClick, pinsData }: MapCo
             `<div style="color:#1a1a2e;font-family:sans-serif;padding:2px 4px;max-width:240px">
               <strong>${esc(props.name)}</strong><br/>
               <span style="font-size:12px">${esc(props.city)}, ${esc(props.country)}</span><br/>
-              ${originLine}
               <span style="font-size:11px;color:#555">${typeLabel}</span>
             </div>`
           )
