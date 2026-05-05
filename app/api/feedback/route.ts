@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
 
     // Email értesítő
     await resend.emails.send({
-      from: 'Merre vagy, vándor? <vandor@merevagyvandor.hu>',
-      to: 'icecreambk1@gmail.com',
+      from: 'Merre vagy, vándor? <onboarding@resend.dev>',
+      to: 'merevagyvandor@gmail.com',
       subject: `💬 Új visszajelzés — ${source === 'terkep' ? 'Térkép' : 'Landing'}`,
       html: `
         <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;background:#060612;color:#e0e0e0;padding:28px;border-radius:12px;">
