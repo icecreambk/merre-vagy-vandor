@@ -523,4 +523,19 @@ export default function AdatvedelemPage() {
             <strong>Email:</strong> <a href="mailto:merevagyvandor@gmail.com">merevagyvandor@gmail.com</a>
           </p>
           <p className="dim" style={{marginTop: '10px'}}>
-            Válaszunkra legkéső
+            Válaszunkra legkésőbb 30 napon belül számíthatsz, de törekszünk rá, hogy 48 órán belül reagáljunk.
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          © 2026 Merre vagy, vándor? · <a href="/">Főoldal</a> · <a href="/rolunk">Rólunk</a> · <a href="/terkep">Térkép</a>
+        </p>
+        <p className="dim" style={{marginTop: 6, fontSize: 11}}>
+          Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt) · 2026
+        </p>
+      </footer>
+    </>
+  )
+}

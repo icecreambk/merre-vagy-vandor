@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 interface WelcomeEmailParams {
   to: string
   name: string
@@ -26,6 +24,7 @@ export async function sendWelcomeEmail({
   removalToken,
 }: WelcomeEmailParams) {
   if (!process.env.RESEND_API_KEY) return // ha nincs kulcs, csendben kihagyjuk
+  const resend = new Resend(process.env.RESEND_API_KEY)
 
   const displayName = name && name !== 'Vándor' ? name : 'Vándor'
   const typeLabel = PIN_TYPE_LABELS[pinType]
