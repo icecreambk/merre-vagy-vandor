@@ -18,7 +18,7 @@ export default function LandingPage() {
           color: var(--text);
           font-family: Georgia, serif;
           min-height: 100vh;
-          overflow-x: hidden;
+          overflow-x: hidden; overflow-y: auto;
         }
         body::before {
           content: '';
@@ -50,7 +50,7 @@ export default function LandingPage() {
           border-bottom: 1px solid var(--border);
           backdrop-filter: blur(12px);
         }
-        .nav-logo { font-size: 18px; color: var(--gold); text-decoration: none; }
+        .nav-logo { font-size: 15px; color: var(--gold); text-decoration: none; white-space: nowrap; }
         .nav-links { display: flex; gap: 24px; list-style: none; }
         .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }

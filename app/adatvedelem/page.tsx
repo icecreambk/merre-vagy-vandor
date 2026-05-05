@@ -26,7 +26,7 @@ export default function AdatvedelemPage() {
           color: var(--text);
           font-family: Georgia, serif;
           min-height: 100vh;
-          overflow-x: hidden;
+          overflow-x: hidden; overflow-y: auto;
         }
         body::before {
           content: '';
@@ -54,7 +54,7 @@ export default function AdatvedelemPage() {
           border-bottom: 1px solid var(--border);
           backdrop-filter: blur(12px);
         }
-        .nav-logo { font-size: 18px; color: var(--gold); text-decoration: none; }
+        .nav-logo { font-size: 15px; color: var(--gold); text-decoration: none; white-space: nowrap; }
         .nav-links { display: flex; gap: 24px; list-style: none; }
         .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }
@@ -182,11 +182,11 @@ export default function AdatvedelemPage() {
       `}</style>
 
       <nav>
-        <a href="/landing" className="nav-logo">Merre vagy, vándor?</a>
+        <a href="/" className="nav-logo">Merre vagy, vándor?</a>
         <ul className="nav-links">
-          <li><a href="/landing">Főoldal</a></li>
+          <li><a href="/">Főoldal</a></li>
           <li><a href="/rolunk">Rólunk</a></li>
-          <li><a href="/">Térkép</a></li>
+          <li><a href="/terkep">Térkép</a></li>
         </ul>
       </nav>
 
@@ -531,7 +531,7 @@ export default function AdatvedelemPage() {
 
       <footer>
         <p>
-          © 2026 Merre vagy, vándor? · <a href="/landing">Főoldal</a> · <a href="/rolunk">Rólunk</a> · <a href="/">Térkép</a>
+          © 2026 Merre vagy, vándor? · <a href="/">Főoldal</a> · <a href="/rolunk">Rólunk</a> · <a href="/terkep">Térkép</a>
         </p>
         <p className="dim" style={{marginTop: 6, fontSize: 11}}>
           Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt) · 2026
