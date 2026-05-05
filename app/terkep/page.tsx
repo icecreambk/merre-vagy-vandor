@@ -12,6 +12,7 @@ import Leaderboard from '@/components/overlays/Leaderboard'
 import AboutOverlay from '@/components/overlays/AboutOverlay'
 import StatsPanel from '@/components/overlays/StatsPanel'
 import type { PinGeoJSON } from '@/types'
+import FeedbackButton from '@/components/FeedbackButton'
 
 // Mapbox must not run on server
 const MapComponent = dynamic(() => import('@/components/map/MapComponent'), {
@@ -217,6 +218,8 @@ export default function HomePage() {
           <PinProfileDone onClose={handleClose} />
         </div>
       )}
+
+      <FeedbackButton source="terkep" />
     </main>
   )
 }

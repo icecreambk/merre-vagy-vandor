@@ -1,3 +1,5 @@
+import FeedbackButton from '@/components/FeedbackButton'
+
 export default function LandingPage() {
   return (
     <>
@@ -307,6 +309,8 @@ export default function LandingPage() {
         <p>© 2026 Merre vagy, vándor? · <a href="/terkep">Térkép app</a> · <a href="/rolunk">Rólunk</a> · <a href="/adatvedelem">Adatvédelem</a></p>
         <p style={{ marginTop: 6, fontSize: 11 }}>A projekt üzemeltetője az <strong style={{ color: 'var(--gold-dim)' }}>Erdélyi Vándor Baráti Társaság</strong> <span style={{ opacity: 0.6 }}>(alapítás alatt)</span></p>
       </footer>
+
+      <FeedbackButton source="landing" />
 
       <script dangerouslySetInnerHTML={{__html: `
         async function loadStats() {
