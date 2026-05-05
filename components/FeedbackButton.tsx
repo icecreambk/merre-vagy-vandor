@@ -36,7 +36,7 @@ export default function FeedbackButton({ source }: { source: 'landing' | 'terkep
       <style>{`
         .fb-btn {
           position: fixed;
-          bottom: 24px;
+          bottom: calc(24px + env(safe-area-inset-bottom, 0px));
           right: 24px;
           z-index: 999;
           background: rgba(232,197,71,0.15);

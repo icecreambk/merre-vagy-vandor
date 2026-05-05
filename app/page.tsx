@@ -64,11 +64,11 @@ export default function LandingPage() {
           padding: 100px 24px 60px;
         }
         .hero-eyebrow {
-          font-size: 12px; color: var(--gold-dim);
-          letter-spacing: 0.12em; text-transform: uppercase;
+          font-size: 10px; color: var(--gold-dim);
+          letter-spacing: 0.1em; text-transform: uppercase;
           margin-bottom: 20px;
           border: 1px solid var(--border); border-radius: 20px;
-          padding: 5px 14px; display: inline-block;
+          padding: 4px 10px; display: inline-block;
           background: var(--gold-faint);
         }
         .hero-title {
