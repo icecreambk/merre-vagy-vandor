@@ -2,13 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-const resend = new Resend(process.env.RESEND_API_KEY!)
-
 export async function POST(req: NextRequest) {
   try {
     const { opinion, device, improvement, source } = await req.json()
@@ -16,6 +9,13 @@ export async function POST(req: NextRequest) {
     if (!opinion && !improvement) {
       return NextResponse.json({ error: 'Legalább egy mezőt tölts ki' }, { status: 400 })
     }
+
+    // Init inside handler — env vars only available at runtime
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
+    const resend = new Resend(process.env.RESEND_API_KEY!)
 
     const { error } = await supabase.from('feedback').insert({
       opinion: opinion?.trim() || null,
@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
-    // Email értesítő
     await resend.emails.send({
       from: 'Merre vagy, vándor? <onboarding@resend.dev>',
       to: 'merevagyvandor@gmail.com',
