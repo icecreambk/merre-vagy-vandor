@@ -204,6 +204,9 @@ export default function AdatvedelemPage() {
             Ez a tájékoztató elmagyarázza, milyen személyes adatokat kezelünk, milyen célból,
             milyen jogalapon, és milyen jogaid vannak ezzel kapcsolatban.
           </p>
+          <p style={{marginTop: '12px', padding: '10px 14px', background: 'rgba(232,197,71,0.08)', border: '1px solid rgba(232,197,71,0.2)', borderRadius: '8px'}}>
+            ⚠️ Ez a projekt jelenleg béta (teszt) fázisban van. A rendszer és a funkciók még fejlesztés alatt állnak, de az adatkezelési elvek nem változnak. A felhasználók bármikor kérhetik adataik törlését.
+          </p>
           <p style={{marginTop: '12px'}}>
             A tájékoztató az <strong>Európai Unió Általános Adatvédelmi Rendelete (GDPR – Regulation (EU) 2016/679)</strong> és
             az <strong>Egyesült Királyság Data Protection Act 2018 (UK GDPR)</strong> rendelkezéseivel összhangban készült.
@@ -213,20 +216,16 @@ export default function AdatvedelemPage() {
         <h2>1. Az adatkezelő adatai</h2>
         <div className="contact-block">
           <p>
-            <strong>Üzemeltető (adatkezelő):</strong> Erdélyi Vándor Baráti Társaság{' '}
-            <span className="dim">(alapítás alatt)</span>
+            <strong>Jelenlegi adatkezelő:</strong> Kobori Béla (egyéni vállalkozó, Egyesült Királyság)
           </p>
           <p className="dim" style={{marginTop: '8px'}}>
-            A projekt mögött álló közösségi egyesület <strong>bejegyzés alatt áll</strong>.
-            A hivatalos bírósági bejegyzésig az adatkezelői felelősséget az egyesület
-            alapító tagjai személyesen viselik, a bejegyzést követően minden adatkezelési
-            felelősség automatikusan átszáll a bejegyzett egyesületre. Erről a változásról
-            a felhasználókat külön is tájékoztatjuk, a hozzájárulás érvényben marad.
+            Az egyesület hivatalos bejegyzését követően az adatkezelő az <strong>Erdélyi Vándor Baráti Társaság</strong> lesz.
+            Erről a változásról a felhasználókat külön is tájékoztatjuk, a hozzájárulás érvényben marad.
           </p>
           <p style={{marginTop: '14px'}}>
-            <strong>Jelenleg felelős természetes személy (alapító):</strong> Kobori Béla MSc
+            <strong>Jogi forma:</strong> Bela Kobori se. (Sole Entrepreneur, Egyesült Királyság)
           </p>
-          <p><strong>Jogi forma:</strong> Bela Kobori se. (Sole Entrepreneur, Egyesült Királyság)</p>
+          <p><strong>Teljes név:</strong> Kobori Béla MSc</p>
           <p><strong>Adószám:</strong> 4226551304</p>
           <p><strong>Székhely:</strong> 21 Langdon Drive, London NW9 8NS, United Kingdom</p>
           <p style={{marginTop: '10px'}}>
@@ -251,7 +250,7 @@ export default function AdatvedelemPage() {
           <p><strong>A) Pin-felhelyezéshez kezelt adatok (a publikus „pins" adatbázis):</strong></p>
           <p style={{marginTop: '8px'}}><em>Kötelező:</em></p>
           <ul>
-            <li><strong>Email cím</strong> – a jelölő kezeléséhez, törlési lehetőség biztosításához, és (ha külön hozzájárulsz) ritka közösségi értesítésekhez</li>
+            <li><strong>Email cím</strong> – a jelölő kezeléséhez, törlési lehetőség biztosításához, és (ha külön hozzájárulsz) ritka közösségi értesítésekhez. Az email cím szükséges a jelölő egyedi azonosításához és a törlési jog gyakorlásának biztosításához.</li>
             <li><strong>Mostani város és ország</strong> – a jelölő térképen való megjelenítéséhez</li>
             <li><strong>Földrajzi koordináták</strong> – pontos és kerekített formában egyaránt (részleteket lásd lent)</li>
             <li><strong>Jelölő típusa</strong> – „Kint élek", „Kijárok dolgozni", vagy „Készülök kimenni"</li>
@@ -288,7 +287,7 @@ export default function AdatvedelemPage() {
           <p style={{marginTop: '12px'}}><em>Külön, kifejezett hozzájárulások a B) adatlap végén:</em></p>
           <ul>
             <li><strong>Sorsolási hozzájárulás</strong> – ha bepipálod, részt veszel a havi partnerajánlat-kupon sorsolásban (pl. WizzAir kedvezmény, Volánbusz utalvány). A sorsolási szabályzat részleteit a 11. pont tartalmazza.</li>
-            <li><strong>Sponzori ajánlat hozzájárulás</strong> – ha bepipálod, évente max 4-5 alkalommal küldhetünk neked az erdélyi közösségnek szóló partnerajánlatokat (utazás, pénzküldés, biztosítás). <strong>Az email címedet sosem adjuk át a partnernek</strong> — a megkereséseket mi magunk küldjük ki.</li>
+            <li><strong>Sponzori ajánlat hozzájárulás</strong> – ha bepipálod, évente max 4-5 alkalommal küldhetünk neked az erdélyi közösségnek szóló partnerajánlatokat (utazás, pénzküldés, biztosítás). <strong>Az email címedet sosem adjuk át a partnernek</strong> — a megkereséseket mi magunk küldjük ki. A szponzori ajánlatok nem egyéni profilalkotáson alapulnak, hanem egyszerű, csoportszintű szűrésen (pl. ország vagy utazási szokások alapján).</li>
           </ul>
           <p style={{marginTop: '12px'}}>
             <strong>A B) tábla biztonsága:</strong> a pin_profiles adatbázis-tábla
@@ -350,7 +349,7 @@ export default function AdatvedelemPage() {
         </p>
         <ul>
           <li><strong>Jelölő adatok (nicknév, email, város, ország, koordináták, opcionális demográfiai mezők):</strong> a hozzájárulás visszavonásáig, vagy ameddig a jelölőd „aktív" státuszban van. Te bármikor, egyetlen kattintással törölheted a jelölődet, vagy kérheted email-en az összes adatod törlését — a kérést haladéktalanul, de legkésőbb 30 napon belül teljesítjük.</li>
-          <li><strong>Technikai lejárati dátum (biztonsági háló):</strong> ~10 év — ez kizárólag adatbázis-technikai mechanizmus arra az esetre, ha az üzemeltető bármilyen okból megszűnne és a közösségi törlési folyamat nem működne. A gyakorlatban a jelölők aktívak maradnak, amíg Te másként nem rendelkezel.</li>
+          <li><strong>Technikai lejárati dátum (biztonsági háló):</strong> ~10 év — ez kizárólag adatbázis-technikai mechanizmus arra az esetre, ha az üzemeltető bármilyen okból megszűnne és a közösségi törlési folyamat nem működne. A gyakorlatban a jelölők aktívak maradnak, amíg Te másként nem rendelkezel. A gyakorlatban az adatkezelés időtartama teljes mértékben a felhasználó döntésétől függ, mivel a jelölő bármikor törölhető.</li>
           <li><strong>Marketing-hozzájárulás:</strong> csak addig, amíg a hozzájárulást vissza nem vonod. Visszavonás után a marketing-flag véglegesen „false"-ra kerül, a hírlevélből kiiratkozol.</li>
           <li><strong>Szerveroldali technikai log-ok:</strong> legfeljebb 14 nap, ezután felülíródnak.</li>
           <li><strong>Hibaüzenetek és monitoring adatok:</strong> 30 napig, összesített, nem személyes formában.</li>
@@ -524,19 +523,4 @@ export default function AdatvedelemPage() {
             <strong>Email:</strong> <a href="mailto:merevagyvandor@gmail.com">merevagyvandor@gmail.com</a>
           </p>
           <p className="dim" style={{marginTop: '10px'}}>
-            Válaszunkra legkésőbb 30 napon belül számíthatsz, de törekszünk rá, hogy 48 órán belül reagáljunk.
-          </p>
-        </div>
-      </div>
-
-      <footer>
-        <p>
-          © 2026 Merre vagy, vándor? · <a href="/">Főoldal</a> · <a href="/rolunk">Rólunk</a> · <a href="/terkep">Térkép</a>
-        </p>
-        <p className="dim" style={{marginTop: 6, fontSize: 11}}>
-          Üzemeltető: Erdélyi Vándor Baráti Társaság (alapítás alatt) · 2026
-        </p>
-      </footer>
-    </>
-  )
-}
+            Válaszunkra legkéső
