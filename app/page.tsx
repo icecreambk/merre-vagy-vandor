@@ -44,14 +44,13 @@ export default function LandingPage() {
           z-index: 100;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
           padding: 16px 24px;
           background: rgba(6,6,18,0.85);
           border-bottom: 1px solid var(--border);
           backdrop-filter: blur(12px);
         }
-        .nav-logo { font-size: 15px; color: var(--gold); text-decoration: none; white-space: nowrap; }
-        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }
         .hero {
@@ -213,7 +212,6 @@ export default function LandingPage() {
       `}</style>
 
       <nav>
-        <a href="/" className="nav-logo">Merre vagy, vándor?</a>
         <ul className="nav-links">
           <li><a href="/rolunk">Rólunk</a></li>
           <li><a href="#contact">Kapcsolat</a></li>
