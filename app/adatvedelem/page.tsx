@@ -225,9 +225,6 @@ export default function AdatvedelemPage() {
           <p style={{marginTop: '14px'}}>
             <strong>Jogi forma:</strong> Bela Kobori se. (Sole Entrepreneur, Egyesült Királyság)
           </p>
-          <p><strong>Teljes név:</strong> Kobori Béla MSc</p>
-          <p><strong>Adószám:</strong> 4226551304</p>
-          <p><strong>Székhely:</strong> 21 Langdon Drive, London NW9 8NS, United Kingdom</p>
           <p style={{marginTop: '10px'}}>
             <strong>Alapító társ:</strong> Balázs Áron <span className="dim">(Erdély)</span>
           </p>
