@@ -194,7 +194,7 @@ export default function AdatvedelemPage() {
         <div className="doc-eyebrow">Jogi dokumentum</div>
         <h1>Adatvédelmi tájékoztató</h1>
         <p className="doc-meta">
-          Hatályos: 2026. április 22. napjától · Utolsó frissítés: 2026. április 24.
+          Hatályos: 2026. április 22. napjától · Utolsó frissítés: 2026. május 5.
         </p>
 
         <div className="intro">
