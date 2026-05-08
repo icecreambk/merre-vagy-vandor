@@ -37,9 +37,9 @@ export default function StatsPanel({ pinsData }: StatsPanelProps) {
     `🟢 ${planning} készül kimenni\n` +
     `🌐 ${countries} országból\n\n` +
     `Te hol vagy? Tedd fel a jelölődet!\n` +
-    `👉 https://merre-vagy-vandor.vercel.app`
+    `👉 https://merrevagyvandor.com`
   )
-  const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=https://merre-vagy-vandor.vercel.app&quote=${fbText}`
+  const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=https://merrevagyvandor.com&quote=${fbText}`
 
   return (
     <>

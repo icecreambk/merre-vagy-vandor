@@ -7,8 +7,8 @@
   <meta name="description" content="Mutasd meg a világnak, hol élsz te. Erdélyiek a nagyvilágban – interaktív közösségi térkép." />
   <meta property="og:title" content="Merre vagy, vándor?" />
   <meta property="og:description" content="Mutasd meg a világnak, hol élsz te. Erdélyiek a nagyvilágban." />
-  <meta property="og:image" content="https://merre-vagy-vandor.vercel.app/og.png" />
-  <meta property="og:url" content="https://merre-vagy-vandor.vercel.app" />
+  <meta property="og:image" content="https://merrevagyvandor.com/og.png" />
+  <meta property="og:url" content="https://merrevagyvandor.com" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -402,7 +402,7 @@
       </div>
     </div>
 
-    <a href="https://merre-vagy-vandor.vercel.app" class="cta-btn" target="_blank" rel="noopener">
+    <a href="https://merrevagyvandor.com" class="cta-btn" target="_blank" rel="noopener">
       🗺️ Megnyitom a térképet
     </a>
     <span class="cta-sub">Ingyenes · Névtelen · 30 nap után törlődik</span>
@@ -469,7 +469,7 @@
       <a href="https://www.facebook.com/groups/963074126669000" target="_blank" rel="noopener" class="btn-fb">
         📘 Facebook csoport
       </a>
-      <a href="https://merre-vagy-vandor.vercel.app" target="_blank" rel="noopener" class="btn-outline">
+      <a href="https://merrevagyvandor.com" target="_blank" rel="noopener" class="btn-outline">
         🗺️ Térkép alkalmazás
       </a>
     </div>
@@ -477,14 +477,14 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2026 Merre vagy, vándor? · <a href="https://merre-vagy-vandor.vercel.app">Térkép app</a> · Powered by Kobori AI Systems · London</p>
+    <p>© 2026 Merre vagy, vándor? · <a href="https://merrevagyvandor.com">Térkép app</a> · Powered by Kobori AI Systems · London</p>
   </footer>
 
   <!-- Élő statisztika betöltése -->
   <script>
     async function loadStats() {
       try {
-        const res = await fetch('https://merre-vagy-vandor.vercel.app/api/pins')
+        const res = await fetch('https://merrevagyvandor.com/api/pins')
         const data = await res.json()
         const total = data.features?.length || 0
         const countries = new Set(data.features?.map(f => f.properties.country)).size

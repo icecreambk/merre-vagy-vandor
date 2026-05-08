@@ -74,7 +74,7 @@ export async function sendWelcomeEmail({
 
     <!-- Gombok -->
     <div style="text-align:center;margin-bottom:24px;">
-      <a href="https://merre-vagy-vandor.vercel.app" style="display:inline-block;background:#e8c547;color:#0a0a14;text-decoration:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:bold;margin-bottom:10px;">
+      <a href="https://merrevagyvandor.com" style="display:inline-block;background:#e8c547;color:#0a0a14;text-decoration:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:bold;margin-bottom:10px;">
         🌍 Megnézem a térképet
       </a>
       <br/>
